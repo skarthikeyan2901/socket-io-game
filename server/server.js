@@ -19,10 +19,10 @@ io.on('connection', (socket) => {
     // console.log(io.engine.clientsCount);
     socket.on('join-room', (inviteCode, name) => {
         socket.join(inviteCode);
-        console.log(inviteCode);
+        // console.log(inviteCode);
 
         players.push({ name: name, score: 0 });
-        console.log(players);
+        // console.log(players);
 
         if (players.length >= 4) {
             io.to(inviteCode).emit('start-game', true);
@@ -35,25 +35,33 @@ io.on('connection', (socket) => {
 
     });
 
-    socket.on('option-picked', (name, option, id) => {
+    socket.on("send-message", async (message, user, inviteCode) => {
+        io.in(inviteCode).emit("receive-message", message, user)
+    })
+
+    socket.on('option-picked', (name, option, id, round) => {
         responses.push({name: name, option: option, id: id});
-        console.log(responses);
+        // console.log(responses);
         if(option === 1) {
             one++;
         }
         else {
             two++;
         }
-        console.log(one, two);
+        // console.log(one, two);
         if(responses.length == 4) {
             // io.to(inviteCode).emit('score-returned', responses)
-            console.log('hello');
+            // console.log('hello');
             if(one === 0 && two === 4) {
                 for(let i = 0; i < 4; i++)
                 {
-                    io.to(responses[i].id).emit('score-returned', -25);
+                    let s = -25;
+                    if(round > 6) {
+                        s = -250;
+                    }
+                    io.to(responses[i].id).emit('score-returned', s);
                     let temp = players.find(c => c.name == responses[i].name);
-                    temp.score = temp.score - 25;
+                    temp.score = temp.score + s;
                 }
             } 
             else if(one == 1 && two == 3) {
@@ -62,10 +70,20 @@ io.on('connection', (socket) => {
                 {
                     let s;
                     if(responses[i].option == 1) {
-                        s = -25;
+                        if(round > 6) {
+                            s = -250
+                        }
+                        else {
+                            s = -25
+                        }
                     }
                     else {
-                        s = 25;
+                        if(round > 6) {
+                            s = 250
+                        }
+                        else {
+                            s = 25
+                        }
                     }
                     io.to(responses[i].id).emit('score-returned', s);
                     let temp = players.find(c => c.name == responses[i].name);
@@ -77,10 +95,19 @@ io.on('connection', (socket) => {
                 for (let i = 0; i < 4; i++) {
                     let s;
                     if (responses[i].option == 1) {
-                        s = -12.5;
+                        if(round > 6) {
+                            s = -125
+                        } else {
+                            s = -12.5
+                        }
                     }
                     else {
-                        s = 50;
+                        if(round > 6) {
+                            s = 500;
+                        }
+                        else {
+                            s = 50;
+                        }
                     }
                     io.to(responses[i].id).emit('score-returned', s);
                     let temp = players.find(c => c.name == responses[i].name);
@@ -95,7 +122,12 @@ io.on('connection', (socket) => {
                         s = 0;
                     }
                     else {
-                        s = 75;
+                        if(round > 6) {
+                            s = 750
+                        }
+                        else {
+                            s = 75;
+                        }
                     }
                     io.to(responses[i].id).emit('score-returned', s);
                     let temp = players.find(c => c.name == responses[i].name);
@@ -105,9 +137,13 @@ io.on('connection', (socket) => {
             else {
                 for (let i = 0; i < 4; i++) 
                 {
-                    io.to(responses[i].id).emit('score-returned', 25);
+                    let s = 25;
+                    if(round > 6) {
+                        s = 250;
+                    }
+                    io.to(responses[i].id).emit('score-returned', s);
                     let temp = players.find(c => c.name == responses[i].name);
-                    temp.score = temp.score + 25;
+                    temp.score = temp.score + s;
                 }
             }
             responses = [];
@@ -117,7 +153,7 @@ io.on('connection', (socket) => {
     })
     
     socket.on('check-scores', () => {
-        console.log(players);
+        // console.log(players);
         socket.emit('get-scores', players);
     })
     

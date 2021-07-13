@@ -31,7 +31,7 @@ function Winner() {
     const location = useLocation();
     const totalScores = location.state.totalScores;
     let maxValue = -1000;
-    console.log(totalScores);
+    // console.log(totalScores);
     // const scores = Object.entries(totalScores)
 
     if (totalScores) {
@@ -50,7 +50,7 @@ function Winner() {
     console.log(winner)
 
     const winnerRender = winner.map((e) => {
-        return <span>{e.name} </span>
+        return <span style={{color: 'blue'}}>{e.name} </span>
     })
     console.log(winnerRender)
 
@@ -61,7 +61,7 @@ function Winner() {
                 height={700}
             />
             <Card className={classes.card}>
-            <h2 style={{marginLeft: '20px'}}>The winner(s) is/are: {winnerRender}</h2>
+            <h2 style={{marginLeft: '20px'}}>The winner(s) is/are: {winnerRender} with a score of {maxValue}</h2>
             <Link to='/' style={{textDecoration: 'none'}}><Button className={classes.buttonClass} variant="contained" color="primary">Go Back Home</Button></Link>
             </Card>
         </div>
@@ -69,41 +69,3 @@ function Winner() {
 }
 
 export default Winner;
-
-
-
-    // for(let i = 0; i < 4; i++)
-    // {
-    //     console.log(totalScores[i]?.name)
-    // }
-
-    // if(totalScores) {
-    //     for (let i = 0; i < 4; i++) {
-    //         console.log('hello')
-    //         console.log(totalScores[i])
-    //         console.log(totalScores[i]?.score)
-    //         if (maxValue < totalScores[i]?.score) {
-    //             console.log(totalScores[i].name)
-    //             maxValue = totalScores[i]?.score;
-    //             setWinner(totalScores[i]?.name);
-
-    //         }
-    //     }
-    // }
-
-
-
-// scores.map((item) => {
-    //     console.log(item.name);
-    // })
-
-    // const max = totalScores.reduce(function (prev, current) {
-    //     return (prev?.score > current?.score) ? prev : current
-    // })
-
-    // const tempWinner = totalScores.totalScores.filter(function (e) {
-    //     return e?.name == "sk";
-    // });
-    // console.log(tempWinner);
-
-    // setWinner(tempWinner);

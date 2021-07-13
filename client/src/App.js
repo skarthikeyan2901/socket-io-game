@@ -17,10 +17,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/" component={Home}></Route>
-          {/* <Route exact path="/admin" component={Admin}></Route> */}
           <Route exact path="/join" component={Join}></Route>
-          {/* <Route exact path="/usergame"></Route>
-          <Route exact path="/admingame"></Route> */}
           <Route exact path="/game" component={Game}></Route>
           <Route exact path="/winner" component={Winner}></Route>
           <Redirect to="/" />
