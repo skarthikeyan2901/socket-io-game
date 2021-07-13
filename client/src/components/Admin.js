@@ -15,7 +15,7 @@ function Admin() {
             <div style={{textAlign: "center"}}>
                 <button className="btn btn-primary btn-lg buttonClass" onClick={generateNumber}>Generate invite code</button>
             </div>
-            <h2 style={{textAlign: "center"}}>Invite code: {id}</h2>
+            {id ? <h2 style={{textAlign: "center"}}>Invite code {id}</h2>: <div/>}
             <div style={{ textAlign: "center" }}>
                 <Link to="/admingame"><button className="btn btn-primary btn-lg buttonClass">Start Game</button></Link>
             </div>

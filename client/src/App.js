@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
 import Home from './components/Home';
-import Admin from './components/Admin';
-import User from './components/User';
+import Join from './components/Join';
+import Game from './components/Game';
+import Winner from './components/Winner';
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,10 +17,12 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/" component={Home}></Route>
-          <Route exact path="/admin" component={Admin}></Route>
-          <Route exact path="/user" component={User}></Route>
-          <Route exact path="/usergame"></Route>
-          <Route exact path="/admingame"></Route>
+          {/* <Route exact path="/admin" component={Admin}></Route> */}
+          <Route exact path="/join" component={Join}></Route>
+          {/* <Route exact path="/usergame"></Route>
+          <Route exact path="/admingame"></Route> */}
+          <Route exact path="/game" component={Game}></Route>
+          <Route exact path="/winner" component={Winner}></Route>
           <Redirect to="/" />
         </Switch>
       </Router>
